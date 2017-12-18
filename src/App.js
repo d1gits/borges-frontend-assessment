@@ -8,14 +8,21 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      score: 0
+      activeRoutes: [],
+      score: 0,
     };
     this.boundAdd = this.add.bind(this);
   }
 
-  add(value) {
+  add(route) {
+    const activeRoutes = this.state.activeRoutes.concat([route]);
+    const score = activeRoutes
+        .map(route => route.value)
+        .reduce((acc, curr) => acc + curr);
+
     this.setState({
-      score: this.state.score + value
+      activeRoutes,
+      score,
     });
   }
 
@@ -29,13 +36,18 @@ class App extends Component {
       { length: 5, value: 10 },
       { length: 6, value: 15 },
       { length: 7, value: 18 },
-      { length: 8, value: 22 }
+      { length: 8, value: 21 },
+      { length: 9, value: 27 },
     ];
 
     const buttons = routes.map((route) => (
-      <Button key={route.length} value={route.value} onClick={this.boundAdd}>
+      <Button key={route.length} value={route} onClick={this.boundAdd}>
         {route.length}
       </Button>
+    ));
+
+    const activeRoutes = this.state.activeRoutes.map((route) => (
+        <li>Length: {route.length}, score: {route.value}</li>
     ));
 
     return (
@@ -49,6 +61,9 @@ class App extends Component {
         <div className='body'>
           {buttons}
         </div>
+        <ul>
+          {activeRoutes}
+        </ul>
       </div>
 
     );

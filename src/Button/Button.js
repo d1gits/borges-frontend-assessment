@@ -18,7 +18,7 @@ class Button extends Component {
 
     return (
 
-      <button type="button" className='button' onClick={this.boundOnClick}>
+      <button type='button' className='button' onClick={this.boundOnClick}>
         {this.props.children}
       </button>
 
@@ -30,7 +30,7 @@ class Button extends Component {
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired
 };
 
